@@ -4,6 +4,18 @@ Subtomogram Averaging using Dynamo, imod, Relion and MatLab
 ## imod2warp
 Currently under construction. Will allow exporting imod directories with aligned stacks for CTF estimation and subtomogram reconstruction in Warp.
 
+## matlabHelpers
+Matlab scripts helping with small subtomogram averaging tasks. Most use the MPI-BC TOM Toolbox for MatLab.
+
+- **Assign_random_rot.m**  
+Takes a .star file and assigns random rotation angles. This can help overcome preferred orientation issues. Reconstructs a template for further Refine3D jobs. 
+- **cylindermask.m**  
+Create a cylindrical mask for Refinement in Relion.
+- **FSC_plot.m**  
+Takes Relion half-maps as input, calculates FSC curves. Plots multiple FSC curves in the same graph. 
+- **reference_symref.m**  
+Takes an input model, symmetrizes it as desired. 
+
 ## novaWrapper
 Wrapper scripts for the novaCTF 3D CTF correction suite. Call from the parent directory of tilt series folders, e.g. Parent/TS_XX/imod. 
 
