@@ -1,0 +1,16 @@
+#!/bin/bash
+# Exit on error and when using an uninitialised variable
+set -ue
+# If no file is found, don't enter loop
+shopt -s nullglob
+
+
+# Read List of TS to Export.
+
+
+
+# Make Export Directory = Root for Warp. Use Newstack to export corresponding frame here after excluding frames!. 
+
+# Make imod Directory. Put TASolution and xf
+
+# Make mdoc Directory. Put .mdoc File here
