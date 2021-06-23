@@ -3,7 +3,19 @@
 % subtomogram reconstruction in imod. This creates symlinks to work with the new file endings adapted for imod > 4.10.51,
 % but will work for others. 
 % Box size must be even!
-% (c) Benedikt Wimmer, Medalia Lab, UZH, February 2021
+% Based on a script by Matthias Wojtynek.
+% (c) Benedikt Wimmer, Medalia Lab, UZH, April 2021
+%
+% Version 2 Features:
+% - no symlinks are created anymore for legacy imod file endings (imod >
+% 4.11.2)
+% - center coordinates of particles are more faithfully calculated
+% according to https://wiki.dynamo.biozentrum.unibas.ch/w/index.php/Volume_center#While_particle_cropping
+% - allows entering a scaling factor to transfer (binned) Dynamo
+% coordinates to unbinned data.
+% - use processchunks for parallel processing
+% - use 3D CTF correction. Provide aligned, filtered stack, ctf correction
+% .com file, defocus .com file must be in imod folder
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clearvars;
@@ -12,7 +24,12 @@ clc;
 %% Input Here
 inputModel = '';
 experimentPath ='';
+
 boxSizeXYZ = '';
+scalingFactor = ;
+CTFstepnm = ''; 
+
+parallelProcesses = '16';
 
 %% Load & Clean Data
 cropList = strcat(inputModel, '/crop.tbl');
@@ -24,7 +41,17 @@ origF = readtable(fileList,'FileType','text','Delimiter','space','MultipleDelims
 origF.Var2 = char(origF.Var2);
 
 cleanT(:,1) = table2array(origT(:,20));
-cleanT(:,2:4) = table2array(origT(:,24:26));
+
+% Calculate true center and scale by scaling Factor
+
+cleanT(:,2) = sum(table2array([origT(:,24) origT(:,4)]),2);
+cleanT(:,3) = sum(table2array([origT(:,25) origT(:,5)]),2);
+cleanT(:,4) = sum(table2array([origT(:,26) origT(:,6)]),2);
+
+scaledT(:,1) = table2array(origT(:,20));
+scaledT(:,2) = scalingFactor * cleanT(:,2);
+scaledT(:,3) = scalingFactor * cleanT(:,3);
+scaledT(:,4) = scalingFactor * cleanT(:,4);
 
 clear origT;
 
@@ -34,12 +61,13 @@ listTS = unique(cleanT(:,1));
 for k = listTS'
     splitID = cleanT(:,1)==k;
     splitT{k} = cleanT(splitID,2:4);
+    coordsT{k} = scaledT(splitID,2:4);
     clear splitID;
     splitID = origF.Var1==k;
     splitF{k} = origF(splitID,2);
 end
 
-clear k splitID cleanT origF;
+clear k splitID cleanT scaledT origF;
 
 %% Run subtomosetup
 
@@ -68,21 +96,25 @@ for k=listTS'
     % Change to IMOD directory
     cd([basePath '/imod']);
     
-    % Export model file
-    tempName = strcat(path{9},'_',inputName);
-    fileID = fopen(tempName,'w');
+    % Export model file (with coordinates on Dynamo input = unscaled)
+    imodName = strcat(path{9},'_',inputName);
+    fileID = fopen(imodName,'w');
     fprintf(fileID,'%.2f %.2f %.2f\n', splitT{k}');
     fclose(fileID);
 
-    % Create subtomogram reconstruction commands.
-    unix(['ln -s ' path{9} '-ali.mrc' ' ' path{9} '-ali.st']);
-    unix(['ln -s ' path{9} '-ali_ali.mrc' ' ' path{9} '-ali.ali']);
-    unix(['subtomosetup -root ' path{9} '-ali' ' -volume ' splitF{k}.Var2 ' -center ' tempName ' -size ' boxSizeXYZ ' -dir ' particlePath]);
+     % Export .coords file (with coordinates on unbinned reconstruction = upscaled)
+    rlnName = strcat(path{9},'.coords');
+    fileID = fopen(rlnName,'w');
+    fprintf(fileID,'%.2f %.2f %.2f\n', coordsT{k}');
+    fclose(fileID);    
+    
+    % Create subtomogram reconstruction commands. In newer versions,
+    % symlinks are not required anymore (imod > 4.11.2)
+    unix(['subtomosetup -root ' path{9} '-ali' ' -volume ' splitF{k}.Var2 ' -center ' imodName ' -size ' boxSizeXYZ ' -dir ' particlePath ' -extent ' CTFstepnm]);
     disp(['IMOD subtomogram-setup done, starting reconstruction, ' num2str(size(splitT{k},1)) ' particles']);
 
     % Perform particle reconstruction
-    unix('subm tilt-sub*.com');
-    disp('reconstructing ...');        
+    unix(['processchunks ' parallelProcesses ' tilt-sub']);
 
     % Waiting-loop until current tomogram is done
     continue_flag = 0;
