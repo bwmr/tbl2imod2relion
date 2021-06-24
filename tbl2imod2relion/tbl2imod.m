@@ -44,9 +44,9 @@ cleanT(:,1) = table2array(origT(:,20));
 
 % Calculate true center and scale by scaling Factor
 
-cleanT(:,2) = sum(table2array([origT(:,24) origT(:,4)]),2);
-cleanT(:,3) = sum(table2array([origT(:,25) origT(:,5)]),2);
-cleanT(:,4) = sum(table2array([origT(:,26) origT(:,6)]),2);
+cleanT(:,2) = table2array(origT(:,24)) -0.5;
+cleanT(:,3) = table2array(origT(:,25)) -0.5;
+cleanT(:,4) = table2array(origT(:,26)) -0.5;
 
 scaledT(:,1) = table2array(origT(:,20));
 scaledT(:,2) = scalingFactor * cleanT(:,2);
