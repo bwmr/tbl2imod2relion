@@ -11,48 +11,48 @@ clearvars;
 
 %% Input
 % General Parameters
-boxSize = 240;
-pixelSize = 1.755;
-plotNumber = 3;
+boxSize = 84;
+pixelSize = 5;
+plotNumber = 2;
 
 odd = cell(1,plotNumber);
 even = cell(1,plotNumber);
 name = cell(1,plotNumber);
 
 % Dataset 1:
-name{1} = 'smallset';
+name{1} = 'same defocus - job010';
 
-oddTemp = tom_mrcread('Refine3D/job002/run_half1_class001_unfil.mrc');
+oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job010/run_ct29_half1_class001_unfil.mrc');
 odd{1} = oddTemp.Value;
 
-evenTemp = tom_mrcread('Refine3D/job002/run_half2_class001_unfil.mrc');
+evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job010/run_ct29_half2_class001_unfil.mrc');
 even{1} = evenTemp.Value;
 
 % Dataset 2:
-name{2} = '';
+name{2} = 'mixed defocus - job021';
 
-oddTemp = tom_mrcread('');
+oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job021/run_half1_class001_unfil.mrc');
 odd{2} = oddTemp.Value;
 
-evenTemp = tom_mrcread('');
+evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job021/run_half2_class001_unfil.mrc');
 even{2} = evenTemp.Value;
 
 % Dataset 3:    
-name{3} = '';
+name{3} = 'randomRot - job61';
 
-oddTemp = tom_mrcread('');
+oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210312_mSFB_SLayer_largebox/Refine3D/job061/run_ct11_half1_class001_unfil.mrc');
 odd{3} = oddTemp.Value;
 
-evenTemp = tom_mrcread('');
+evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210312_mSFB_SLayer_largebox/Refine3D/job061/run_ct11_half2_class001_unfil.mrc');
 even{3} = evenTemp.Value;
 
 % Dataset 4:   
-name{4} = '';
+name{4} = 'imod ctfphaseflip 3D';
 
-oddTemp = tom_mrcread('');
+%oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210415_SFB_SLayer_trial/tbl2imod2relion_3DCTF/Refine3D/job001/run_half1_class001_unfil.mrc');
 odd{4} = oddTemp.Value;
 
-evenTemp = tom_mrcread('');
+%evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210415_SFB_SLayer_trial/tbl2imod2relion_3DCTF/Refine3D/job001/run_half2_class001_unfil.mrc');
 even{4} = evenTemp.Value;
 
 clear oddTemp evenTemp;
@@ -95,8 +95,8 @@ for k = 1:plotNumber
     disp(['The estimated resolution for ' name{k} ' is ' num2str(resolution{k}) ' A'])
 end
 
-xticks([10 20 30 40 50]);
-xticklabels({ x(10) x(20) x(30) x(40) x(50)});
+xticks([10 20 30 40]);
+xticklabels({ x(10) x(20) x(30) x(40)});
 
 clear fscTemp f x intersect;
 

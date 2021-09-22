@@ -9,8 +9,12 @@ Matlab scripts helping with small subtomogram averaging tasks. Most use the MPI-
 
 - **Assign_random_rot.m**  
 Takes a .star file and assigns random rotation angles. This can help overcome preferred orientation issues. Reconstructs a template for further Refine3D jobs. 
+- **Assign_random_rot_warp.m**  
+Same as above but for warp-style .star files. 
 - **cylindermask.m**  
 Create a cylindrical mask for Refinement in Relion.
+- **FileCollector.m**
+Collects and moves files according to a pattern. In this case, collects all MMMs and creates a binned version. 
 - **FSC_plot.m**  
 Takes Relion half-maps as input, calculates FSC curves. Plots multiple FSC curves in the same graph. 
 - **reference_symref.m**  
