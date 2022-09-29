@@ -8,8 +8,8 @@ clc;
 
 %% Input
 
-RootDir = '/mnt/ome/Projects7/Benedikt/01_100_Bacteria/01_Krios-data';
-TargetDir = '/mnt/ome/scratchX03/4Nadav';
+RootDir = '';
+TargetDir = '';
 
 %% Copy Files to bin0 and rename
 
@@ -35,7 +35,7 @@ for k = 1:size(fileList,1)
     experiment = [ID{2} '-' ID{3}];
     
     % Copy file to target folder
-    unix(['cp ' fileList(k).folder '/' fileList(k).name ' ' TargetDir '/bin0/' experiment '-' fileList(k).name]);
+    unix(['cp ' fileList(k).folder '/' fileList(k).name ' ' TargetDir '/' experiment '-' fileList(k).name]);
     
 end
 

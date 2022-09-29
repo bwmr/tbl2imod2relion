@@ -16,7 +16,7 @@ clc;
 %% Input
 % Which Project are you working on? Which Refine3D job should be used as an
 % input?
-relionDir = '/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion';
+relionDir = '';
 jobID = 'job002';
 
 % Info on the .star file. In editor, check the delimiter type (tab or

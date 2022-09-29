@@ -22,37 +22,37 @@ name = cell(1,plotNumber);
 % Dataset 1:
 name{1} = 'same defocus - job010';
 
-oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job010/run_ct29_half1_class001_unfil.mrc');
+oddTemp = tom_mrcread('');
 odd{1} = oddTemp.Value;
 
-evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job010/run_ct29_half2_class001_unfil.mrc');
+evenTemp = tom_mrcread('');
 even{1} = evenTemp.Value;
 
 % Dataset 2:
 name{2} = 'mixed defocus - job021';
 
-oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job021/run_half1_class001_unfil.mrc');
+oddTemp = tom_mrcread('');
 odd{2} = oddTemp.Value;
 
-evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210615_SFB_SLayer_Warp-Relion-M/relion/Refine3D/job021/run_half2_class001_unfil.mrc');
+evenTemp = tom_mrcread('');
 even{2} = evenTemp.Value;
 
 % Dataset 3:    
 name{3} = 'randomRot - job61';
 
-oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210312_mSFB_SLayer_largebox/Refine3D/job061/run_ct11_half1_class001_unfil.mrc');
+oddTemp = tom_mrcread('');
 odd{3} = oddTemp.Value;
 
-evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210312_mSFB_SLayer_largebox/Refine3D/job061/run_ct11_half2_class001_unfil.mrc');
+evenTemp = tom_mrcread('');
 even{3} = evenTemp.Value;
 
 % Dataset 4:   
 name{4} = 'imod ctfphaseflip 3D';
 
-%oddTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210415_SFB_SLayer_trial/tbl2imod2relion_3DCTF/Refine3D/job001/run_half1_class001_unfil.mrc');
+%oddTemp = tom_mrcread('');
 odd{4} = oddTemp.Value;
 
-%evenTemp = tom_mrcread('/home/Medalia/BWimmer/Benedikt/04_SFB/03_Relion/210415_SFB_SLayer_trial/tbl2imod2relion_3DCTF/Refine3D/job001/run_half2_class001_unfil.mrc');
+%evenTemp = tom_mrcread('');
 even{4} = evenTemp.Value;
 
 clear oddTemp evenTemp;

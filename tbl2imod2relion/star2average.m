@@ -11,7 +11,7 @@ clc;
 
 %% Input Here
 
-relionProject = '/mnt/ome/Projects7/Benedikt/05_Relion/210514_SFB_SLayer_highmag_fullset';
+relionProject = '';
 boxSize = 240;
 angPix = 1.755;
 
