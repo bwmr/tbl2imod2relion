@@ -1,9 +1,6 @@
 # tbl2imod2relion
 Subtomogram Averaging using Dynamo, imod, Relion and MatLab
 
-## prepare4warp
-Currently under construction. Will allow exporting imod directories with aligned stacks for CTF estimation and subtomogram reconstruction in Warp.
-
 ## matlabHelpers
 Matlab scripts helping with small subtomogram averaging tasks. Most use the MPI-BC TOM Toolbox for MatLab.
 
